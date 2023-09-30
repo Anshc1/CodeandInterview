@@ -4,23 +4,26 @@ const users = require('../Models/userSchema');
 const jwt = require('jsonwebtoken'); 
 
 router.post('/login', (req, res) => {
-    const email = req.body.email;
+    const userName = req.body.userName;
     const password = req.body.password;
-    
-    users.find({email : email}).then((userData)=>{
-        if(userData.password === password){
+    users.find({userName : userName}).then((userData)=>{
+        if(userData.length === 0 ){
+            res.status(200).json({msg : "user does not exist" })
+        }else if(userData[0].password === password){   
+            const secretToken = "MY SECRET KEY-> to be replaced in env.variable"
             const accesstoken = jwt.sign({
-                email : email , 
-                userId : "PRAJWAL" ,
-            } , 'PRAJWAL' , {expiresIn : '1h'}); 
-            res.status(200).json({msg : "user registered" , token : accesstoken} ); 
+                userName: userName, 
+                email : userData[0].email,  
+                userId : userData[0]._id 
+            } , secretToken , {expiresIn : '1h'}); 
+            res.status(200).json({msg : "user logged in" , token : accesstoken} ); 
         }else{
-            res.status(200).json({msg : "password incorrect..."});  
+            res.status(300).json({msg : "password incorrect..."});  
         }
     }).catch((err)=>{
         res.status(500).json({err : err} ); 
-        console.log(err);
+       console.log(err);
     })
-    console.log(req);
 })
 
+module.exports = router; 
