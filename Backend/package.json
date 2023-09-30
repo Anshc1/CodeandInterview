@@ -10,7 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.2",
+<<<<<<< HEAD
     "cors": "^2.8.5",
+=======
+    "dotenv": "^16.3.1",
+>>>>>>> 7d0e134ea95c9e5961842512c33eb5c6ca91ff51
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.3",
