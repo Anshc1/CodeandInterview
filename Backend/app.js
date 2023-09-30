@@ -3,7 +3,7 @@ const app = express()
 const port = 5000
 
 
-const connectToDb = require("./dataBaseconnection"); 
+const connectToDb = require("./db/dbConnect"); 
 connectToDb(); 
 
 
